@@ -20,9 +20,10 @@ margin-right: auto; */
     flex-shrink: 0;
     align-self: flex-start;
     width: 12.1rem;
-    height: 0;
+    height: auto;
     /* padding: 1.2rem 0; */
     right: 0;
+    overflow: scroll;
 }
 .doc_content{
     flex-grow: 1;
@@ -75,4 +76,8 @@ margin-right: auto; */
     font-weight:500;
     font-size: medium;
     line-height: 1.7;
+}
+.subitem-nav-bar{
+    list-style-type: none;
+    font-size: small;
 }
