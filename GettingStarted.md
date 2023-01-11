@@ -1,9 +1,6 @@
 # AWS IoT Greengrass Installation on Terabox Gateway
 
-The following guide provides the detailed installation procedure of AWS IoT Greengrass V2 Core software on Terabox Gateway. This guide contains 2 methods to provison the device under Greengrass V2 resources Group
-
-### [**Automatic Provison**](#installing-through-terminal-commands)
-### [**Manual Provison**](#installing-through-aws-iam-console)
+The following guide provides the detailed installation procedure of AWS IoT Greengrass V2 Core software on Terabox Gateway. 
 
 ## [**Pre-requisites**](#pre-requisites)
 
@@ -11,10 +8,17 @@ To install AWS Greengrass on device, below pre-requisites has to be installed on
 
 - An AWS account. If you don't have one, please follow [**Setup AWS Account**](https://docs.aws.amazon.com/greengrass/v2/developerguide/getting-started.html#getting-started-set-up-aws-account) for creating an aws account
 - AWS region which supports Greengrass V2. Please see [**AWS IoT Greengrass V2 endpoints and quotas**](https://docs.aws.amazon.com/general/latest/gr/greengrassv2.html) in the AWS General Reference for the list of supported regions.
-- An AWS Identity and Access Management (IAM) User with Administirtator privilages. Please see [**creating an IAM role**](#creating-an-iam-role) 
+- An AWS Identity and Access Management (IAM) User with Administrator privileges. Please see [**creating an IAM role**](#creating-an-iam-role) 
 - Terabox Gateway for installing Greengrass software
 - Python3.6 or greater version
 - AWS CLI. Follow the instructions [**aws cli**](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if not installed
+
+This guide contains 2 methods to provison the device under Greengrass V2 resources Group
+
+User can choose any of the below two methods as per their convenience, if user is familiar with AWS, they can choose <Manual Provision> procedure else can follow the <Automatic provision> procedure
+
+### [**Automatic Provison**](#installing-through-terminal-commands)
+### [**Manual Provison**](#installing-through-aws-iam-console)
 
 ### Creating an IAM Role
 
