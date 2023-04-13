@@ -13,12 +13,7 @@ To install AWS Greengrass on device, below pre-requisites has to be installed on
 - Python3.6 or greater version
 - AWS CLI. Follow the instructions [**aws cli**](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if not installed
 
-This guide contains 2 methods to provision the device under Greengrass V2 resources Group
 
-User can choose any of the below two methods as per their convenience, if user is familiar with AWS, they can choose <Manual Provision> procedure else can follow the <Automatic provision> procedure
-
-### [**Automatic Provison**](#installing-through-terminal-commands)
-### [**Manual Provison**](#installing-through-aws-iam-console)
 
 ### Creating an IAM Role
 
@@ -43,8 +38,8 @@ User can choose any of the below two methods as per their convenience, if user i
 9. Download the **AWS Security credentials** from the next window. These credentials are required for setting up Greengrass core on the Terabox.
 
 ## Installing Greengrass Core Software on Terabox
-
-AWS IoT Greengrass Core can be installed on the Terabox using 2 ways
+ AWS IoT Greengrass Core can be installed on the Terabox using 2 ways.
+ User can choose any of the below two methods as per their convenience, if user is familiar with AWS, they can choose using IAM Console procedure else can follow the Terminal Command procedure.
 
 ### **Installing Through AWS IAM Console**
 

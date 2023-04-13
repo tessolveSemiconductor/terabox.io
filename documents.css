@@ -20,10 +20,9 @@ margin-right: auto; */
     flex-shrink: 0;
     align-self: flex-start;
     width: 12.1rem;
-    height: auto;
+    height: 0;
     /* padding: 1.2rem 0; */
     right: 0;
-    overflow: scroll;
 }
 .doc_content{
     flex-grow: 1;
@@ -47,6 +46,8 @@ margin-right: auto; */
     background-color:lavender;
     padding: 20px;
     /* color: black !important; */
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .copy_button{
     position: relative;
@@ -67,7 +68,6 @@ margin-right: auto; */
 }
 .copy_button:hover{
     color: rgb(19, 122, 122);
-
 }
 
 .code_content{
@@ -77,7 +77,26 @@ margin-right: auto; */
     font-size: medium;
     line-height: 1.7;
 }
-.subitem-nav-bar{
-    list-style-type: none;
-    font-size: small;
+
+/* Updated Version */
+.header{
+    color: #ed7d31 !important;
+}
+.device_image{
+    width: 30rem;
+    object-fit:fill ;
+    padding: 10px 20px;
+    margin-left: 25px;
+}
+.image_info{
+    margin-left: 55px;
+}
+p{
+    margin-left: 15px;
+}
+ul{
+    margin-left: 15px;
+}
+ol{
+    margin-left: 15px;
 }
