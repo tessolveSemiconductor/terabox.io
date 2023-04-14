@@ -42,6 +42,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
         integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
         crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> -->
+
 </head>
 
 <body>
@@ -108,162 +111,608 @@
         <section class="doc_container">
             <div class="doc_content">
                 <div class="container">
-                    <h3 id="aws-iot-greengrass-installation-on-terabox-gateway" class="text-muted">AWS IoT Greengrass
-                        Installation on Terabox Gateway</h3>
-                    <p>The following guide provides the detailed installation procedure of AWS IoT Greengrass V2 Core
-                        software on Terabox Gateway. </p>
+                    <h3 id="aws-iot-greengrass-installation-on-terabox-gateway" class=" header">AWS IoT Greengrass on
+                        Terabox Gateway
+                        Installation Guide</h3>
+                    <p>The following guide details the installation procedure of AWS IoT Greengrass V2 Core software on
+                        Terabox Gateway.</p>
                     <!-- <h5 id="-automatic-provison-installing-through-terminal-commands-"><a href="#installing-through-terminal-commands"><strong>Automatic Provison</strong></a></h5>
                 <h5 id="-manual-provison-installing-through-aws-iam-console-"><a href="#installing-through-aws-iam-console"><strong>Manual Provison</strong></a></h5>
                 <h5 id="-pre-requisites-pre-requisites-"><a href="#pre-requisites"><strong>Pre-requisites</strong></a></h5> -->
-                <h5>Pre-requisites</h5>
-                    <p>To install AWS Greengrass on device, below pre-requisites has to be installed on the device</p>
+                    <h4 id="Overview" class="header">1. Overview</h4>
+                    <p>TERABOX is based on NXP-S32G2 high-performance vehicle network processor that combine controller
+                        area network (CAN),
+                        local interconnect network (LIN), and FlexRay networking with high-data-rate Ethernet
+                        networking.
+                        It also combines a functional safe-core infrastructure with MPU cores and includes high-level
+                        security features.
+                    </p>
+                    <p><strong>Targeted applications for TERABOX are:</strong></p>
                     <ul>
-                        <li>An AWS account. If you don&#39;t have one, please follow <a
-                                href="https://docs.aws.amazon.com/greengrass/v2/developerguide/getting-started.html#getting-started-set-up-aws-account"><strong>Setup
-                                    AWS Account</strong></a> for creating an aws account</li>
-                        <li>AWS region which supports Greengrass V2. Please see <a
-                                href="https://docs.aws.amazon.com/general/latest/gr/greengrassv2.html"><strong>AWS IoT
-                                    Greengrass V2 endpoints and quotas</strong></a> in the AWS General Reference for the
-                            list of supported regions.</li>
-                        <li>An AWS Identity and Access Management (IAM) User with Administrator privileges. Please see
-                            <a href="#creating-an-iam-role"><strong class="text-muted" style="color:gray ;">creating an
-                                    IAM role</strong></a> </li>
-                        <li>Terabox Gateway for installing Greengrass software</li>
-                        <li>Python3.6 or greater version</li>
-                        <li>AWS CLI. Follow the instructions <a
-                                href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"><strong>aws
-                                    cli</strong></a> if not installed</li>
+                        <li><strong> service-oriented gateway</strong></li>
+                        <li><strong>vehicle central computing nodes,</strong></li>
+                        <li><strong>domain controller etc</strong> </li>
                     </ul>
-                    <!-- <p>This guide contains 2 methods to provision the device under
-                        Greengrass V2 resources Group</p> -->
-                    <h5 id="creating-an-iam-role">Creating an IAM Role</h5>
-                    <ol>
+
+
+                    <h5 class="header">1.1 About AWS IoT Greengrass</h5>
+                    <p>
+                        AWS IoT Greengrass is an open-source Internet of Things (IoT) edge runtime and cloud service
+                        that allows you to build,
+                        deploy and manage IoT applications on your devices. AWS IoT Greengrass is used to build software
+                        that enables your devices to act locally on the data that they generate,
+                        run predictions based on machine learning models, and filter and aggregate device data.
+                    </p>
+                    <p>
+                        AWS IoT Greengrass enables your devices to collect and analyze data closer to where that data is
+                        generated,
+                        react autonomously to local events, and communicate securely with other devices on the local
+                        network.
+                        Greengrass devices can also communicate securely with AWS IoT Core and export IoT data to the
+                        AWS Cloud.
+                        You can use AWS IoT Greengrass to build edge applications using pre-built software modules,
+                        called components that can connect your edge devices to AWS services or third-party services.
+                        You can also use AWS IoT Greengrass to package and run your software using Lambda functions,
+                        Docker containers, native operating system processes, or custom runtimes of your choice.
+                    </p>
+                    <p>
+                        To learn more about AWS IoT Greengrass, see
+                        <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/how-it-works.html"><strong>how
+                                it works</strong></a>
+                        and
+                        <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html"><strong>what's
+                                new.</strong></a>
+
+                    </p>
+
+                    <h4 id="Hardware-Description" class="header">2.Hardware Description</h4>
+
+                    <h5 class="header">2.1 Datasheet</h5>
+                    <p>
+                        Please find the link for datasheet below:
+                    </p>
+                    <p>
+                        <a
+                            href="https://www.tessolve.com/wp-content/uploads/2022/01/Tessolve-somworkflow-datasheet.pdf"><strong>Tessolve_Datasheet_19
+                                Jan</strong></a>
+                    </p>
+
+
+                    <h5 class="header">2.2 Standard Kit Contents</h5>
+                    <p>
+                        Below are the Kit contents:
+                    </p>
+                    <ul>
+                        <li><strong>TERA Box</strong></li>
+                        <li><strong>LTE/5G Antenna</strong></li>
+                        <li><strong>WIFI Antenna</strong> </li>
+                        <li><strong>GNSS Antenna</strong> </li>
+                        <li><strong>Micro USB Cable</strong></li>
+                        <li><strong>LAN Cable</strong></li>
+                        <li><strong>Power with CAN Cable (OBD II)</strong></li>
+                        <li><strong>User Manual</strong></li>
+                        <li><strong>Power Adapter</strong> </li>
+                    </ul>
+
+
+                    <h5>2.3 Additional Hardware References</h5>
+                    <p>
+                        <a href="https://www.tessolve.com/tera/"><strong>https://www.tessolve.com/tera/</strong></a>
+                    </p>
+
+
+                    <h4 class="header">3.Set up your Development Environment</h4>
+                    <h5 class="header">3.1 Tools Installation (IDEs, Tool chains, SDKs)</h5>
+                    <p>
+                        TERAbox comes with pre-loaded software based on Yocto Linux. Below is detail on TERAbox SDK:
+                    </p>
+
+                    <ul>
                         <li>
-                            <p>Sign in to the <a href="https://console.aws.amazon.com/iam/"><strong>IAM
-                                        console</strong></a> as the account owner by choosing Root user and entering
-                                your AWS account email address. On the next page, enter your password.</p>
+                            TERA OS consideration: Yocto Linux for A53 App Core & RTOS for M7 Core
                         </li>
                         <li>
-                            <p>In the navigation pane, choose <strong>Users</strong> and then choose <strong>Add
-                                    users</strong>.</p>
-                        </li>
-                        <li>
-                            <p>For User name, enter the desired name. For example, <strong>GreengrassProv</strong></p>
-                        </li>
-                        <li>
-                            <p>Select the check box next to <strong>Access Key Progrmatic Access</strong>. </p>
-                        </li>
-                        <li>
-                            <p>Choose <strong>Next: Permissions</strong>.</p>
-                        </li>
-                        <li>
-                            <p>Under Set permissions, choose <strong>Attach Existing Policies Directly</strong>. Filter
-                                the desired policies from the list. Select following policies from the menu</p>
+                            Base Yocto BSP shall be downloaded from NXP for RDB2 platform, below reference
                             <ul>
-                                <li>IoT FullAccess</li>
-                                <li>S3 FullAccess</li>
-                                <li>Greengrass FullAccess</li>
-                                <li>IAM FullAccess</li>
+                                <li>
+                                    <a
+                                    href="https://www.nxp.com/products/processors-and-microcontrollers/s32-automotive-platform/s32g-vehicle-network-processors/s32g2-processors-for-vehicle-networking:S32G2?cid=ad_PRG4692581_TAC507103_GGLEADS_S32G2_&xid=gateway&https://www.nxp.com/company/about-nxp/events/nxp-live-2021:NXP-AT-CES?origin=GGLADW&cid=ps_PRG338958_TAC443086_GGLE&xid=13051041019&gclid=CjwKCAjwy42FBhB2EiwAJY0yQqfE4GgUVjojB2g1DVtOurVvxEcHtbF2jyc4Pso5jXUTYNxXX80otxoCOX8QAvD_BwE"><strong>
+                                        S32G2 Safe and Secure Vehicle Network Processor | NXP Semiconductors
+                                    </strong>
+                                </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <p>Choose <strong>Next: Tags</strong> and then <strong>Next: Preview</strong>.</p>
+                            NXP SDK will have all the required environment setup and toolchain to build Linux BSP for S32G2
                         </li>
-                        <li>choose <strong>Create user</strong>.</li>
-                        <li>Download the <strong>AWS Security credentials</strong> from the next window. These
-                            credentials are required for setting up Greengrass core on the Terabox.</li>
-                    </ol>
-                    <h2 id="installing-greengrass-core-software-on-terabox">Installing Greengrass Core Software on
-                        Terabox</h2>
-                    <p>AWS IoT Greengrass Core can be installed on the Terabox using 2 ways.
-                        User can choose any of the below two methods as per their convenience,
-                        if user is familiar with AWS,
-                        they can choose using IAM Console procedure else can follow the Terminal Command procedure.
+                        <li>
+                            Tessolve downloads NXP S32G2 based software SDK from NXP portal provided for RDB2 platform
+                        </li>
+                        <li>
+                            Tessolve migrates/modify S32G2-RDB2 software for TERA box with TERA specific peripherals and drivers.
+                        </li>
+                        <li>
+                            Tessolve provides TERA SDK in the form of github patches to be merged and integrated on top NXP SDK for specific version.
+                        </li>
+                        <li>
+                            Following are the major components of Tessolve TERA SDK 
+                             <ul>
+                                <li>
+                                    TERA box specific Drivers
+                                </li>
+                                <li>
+                                    Linux rootfs with various services and cloud
+                                </li>
+                                <li>
+                                   Required environments support for rapid proto development: e.g., Python, OpenSSH, MQTT etc.
+                                </li>
+                                <li>
+                                    APIs to access and control interfaces: IMU, LTE(4g/5g), WiFi/BT, EEPROM, GPS, CAN
+                                </li>
+                                <li>
+                                    Test Applications to validate all the TERA interfaces.
+                                </li>
+                             </ul>
+                        </li>
+                       
+                    </ul>
+                    <p>
+                        NOTE: Please contact Tessolve Sales for more details at 
+                        <a href="mailto:nandakumar.palanisamy@tessolve.com"><strong>sales@tessolve.com</strong></a>
                     </p>
-                    <h5 id="installing-through-aws-iam-console">
-                        <strong>Installing Through AWS IAM Console</strong>
+
+
+
+                    <h4 id="Hardware-Setup" class="header">4. Set up your hardware.</h4>
+                    <p>
+                        This section provides instructions for setting up the TERABOX hardware.
+                    </p>
+                    <h5 class="header">
+                        4.1	Interface Connection Details
+                    </h5>
+                    <img class="device_image" src="Images/Images/Fig1.jpg" alt="Fig1" >
+                    <p class="image_info">Figure 1: Tessolve Gateway External connectors 1</p>
+
+                    <img class="device_image" src="Images/Images/Fig2.jpg" alt="Fig2" >
+                    <p class="image_info">Figure 2: Tessolve Gateway External connectors 2</p>
+
+                    <img class="device_image" src="Images/Images/Fig3.jpg" alt="Fig3" >
+                    <p class="image_info">Figure 2: Tessolve Gateway External connectors 3</p>
+
+                    <img class="device_image" src="Images/Images/Fig4.jpg" alt="Fig4" >
+                    <p class="image_info">Figure 2: Tessolve Gateway External connectors 4</p>
+
+                <h5 class="header">4.1.1 Input Power Connector:</h5>
+                 <ul>
+                    <li>
+                        Power Input Jack (5.5mm OD connector) used to supply power to Gateway board. 
+                    </li>
+                    <li>
+                        System support 6 to 36V DC power supply.  Typical power supply to the board is 12V/3A DC.
+                    </li>
+                 </ul>
+
+               <h5 class="header">4.1.2 Wi-Fi or 4G/5G Antenna SMA connectors:</h5>
+                 <ul>
+                    <li>
+                        Three SMA connectors are used for connecting Wi-Fi or 4G/5G module antennas.
+                    </li>
+                 </ul>
+
+                <h5 class="header">4.1.3 GNSS Antenna Connector:</h5>
+                    <ul>
+                        <li>
+                            SMA connector for connect external GPS antenna.
+                        </li>
+                    </ul>
+                <h5 class="header">4.1.4 Ethernet RJ45 Jacks:</h5>
+
+                    <ul>
+                        <li>
+                            Two RJ45 connectors are provided for Ethernet connectivity.
+                        </li>
+                        <li>
+                            Both Ethernet ports support up to 1GbE transfer speed  
+                        </li>
+                    </ul>
+
+                <h5 class="header">4.1.5 USB Host Ports</h5>
+                    <ul>
+                        <li>
+                            Three USB 2.0 Host ports are provided for connect external USB devices.
+                        </li>
+                    </ul>
+
+                <h5 class="header">4.1.6 Debug UART</h5>
+                    <ul>
+                        <li>
+                            Micro USB connector is provided to debug Gateway application board.
+                        </li>
+                    </ul>
+                    
+                <h5 class="header">4.1.7 Status LED</h5>
+                    <ul>
+                        <li>
+                            One dual colour Status LED is provided to indicate operation status of the system.
+                        </li>
+                        <li>
+                            One RED LED is provided to indicate Load ON/OFF.
+                        </li>
+                    </ul>
+
+                <h5 class="header">4.1.7 Status LED</h5>
+                    <p>
+                        Multi-function port is used for optional power supply to the board and it supports power out for external boards.
+                        This Multi-function port support LIN, ADC, I2C and SPI hardware interfaces.
+                    </p>
+                    <img class="device_image" src="Images/Images/Fig5.jpg" alt="Fig5"/> 
+                    <p class="image_info">Figure 5: Multi-function Port connector pin outs</p>
+                    
+                    <p>
+                        Multi-function connector pin outs as below:
+                    </p>
+
+                    <img class="table_image" src="Images/Images/MULTI-FUNCTION PORT.png" alt="MULTI_FUNCTION"/> 
+                    <p class="image_info"><strong>Table 1 : multi-Function connector pin outs</strong></p>
+
+                <h5 class="header">4.1.9 CAN Bus Port</h5>
+                <p>
+                    CAN port used for connecting external Flex and LLCE CAN bus ports.
+                     CAN port will support x2 FLEX CAN ports and x6 LLCE CAN ports.
+                </p>
+
+                    <img class="device_image" src="Images/Images/Fig6.jpg" alt="Fig6" >
+                    <p class="image_info">Figure 6: CAN Bus Port connector pin outs</p>
+
+
+                    <img class="device_image" src="Images/Images/Automotive_Bus_Port.png" alt="Automotive_Bus_Port" >
+                    <p class="image_info">Table 2 : CAN Bus Port connector pin outs</p>
+
+                <h5 class="header">4.1.10 SIM card</h5>
+                <ul>
+                    <li>
+                        SIM connector is provided for wireless communication through 4G/5G network
+                    </li>
+                </ul>
+
+
+
+                <h5 class="header">4.1.10 SIM card</h5>
+                <ul>
+                    <li>
+                        SIM connector is provided for wireless communication through 4G/5G network
+                    </li>
+                </ul>
+
+
+
+                <h5 class="header">4.1.11 SD Card</h5>
+                <ul>
+                    <li>
+                        MicroSD card connector is provided for external storage
+                    </li>
+                    <li>
+                        Micro SD card supports for system Boot and Storage purpose.
+                    </li>
+                </ul>
+
+                <h5 class="header">4.1.12 Reset switch</h5>
+                <ul>
+                    <li>
+                        Reset switch is provided in bottom side of the mechanical system for complete system reset.
+                    </li>
+                </ul>
+
+                <h5 class="header">4.1.13 Power ON/OFF switchh</h5>
+                <ul>
+                    <li>
+                        SPDT switch is provided to turn OFF the board and select the power Input from Power Jack and Multi Port connector.
+                    </li>
+                </ul>
+
+
+                <h4 class="header">5. Create Resources in AWS IoT</h4>
+                 <p>
+                    To create resources in AWS IoT, see 
+                    <a href="https://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html">
+                        <strong>Create AWS IoT Resources.</strong>
+                    </a> 
+                      To provision resources for your   device, follow these steps:
+                 </p>
+                 <u>
+                    <li>
+                        <a href="https://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html#create-iot-policy">
+                            <strong>Create an AWS IoT Policy</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html#create-aws-thing">
+                            <strong>Create a thing object</strong>
+                        </a>
+                    </li>
+                 </u>
+
+                <h4 class="header">6. Installing the AWS Command Line Interface</h4>
+                <p>
+                    To install the AWS CLI on your host machine, refer to the instructions at 
+                    <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">
+                        <strong>Installing the AWS CLI v2.</strong>
+                    </a>
+                    To complete the instructions in this document, you must first install the CLI.
+                </p>
+                <p>
+                    After installing AWS CLI, configure it as per the instructions in the 
+                    <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config">
+                        <strong>online guide.</strong>
+                    </a>
+                    Set the appropriate values for Access key ID, Secret access key, and AWS Region.
+                    If you prefer, you can change the Output format to json.
+                </p>
+
+                <h4 class="header">7.Building a Linux image with Greengrass pre-requisites</h4>
+                 <h5 class="header">7.1	Verify that Java is available.</h5>
+                   <ul>
+                    <li>
+                        Power On
+                    </li>
+                     <li>
+                        Once the system has booted, verify that java is available using the command:
+                          <ul>
+                            <li>
+                                #: java --version.
+                            </li> 
+                          </ul>
+                     </li>
+                   </ul>
+
+
+                <h4 class="header">8. Installing AWS IoT Greengrass on Terrabox Gateway</h4>
+                 <h5 class="header">8.1	Downloading the AWS IoT Greengrass Core Software</h5>
+                 <p>
+                    If Greengrass is not included in the SD card image, 
+                    you can download the most recent Greengrass core software here: 
+                    <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html">
+                        <strong>
+                            AWA IoT Grengrass Core Software.
+                        </strong>
+                    </a>
+                 </p>
+                 <h5 id="Pre-requisites" class="header">8.2 Prerequisites</h5>
+                 <p>
+                    The following prerequisites must be installed on the device before AWS Greengrass can be installed:
+                 </p>
+                 <ul>
+                    <li>
+                        Create an AWS account. 
+                    </li>
+                    <li>
+                        To create, follow these steps 
+                        <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/getting-started.html#getting-started-set-up-aws-account">
+                            <strong>
+                                Setup AWS Account.
+                            </strong>
+                        </a>
+                    </li>
+                    <li>
+                        AWS region which supports Greengrass V2. 
+                        <p>
+                            For the list of supported regions, refer 
+                            <a href="https://docs.aws.amazon.com/general/latest/gr/greengrassv2.html">
+                                <strong>
+                                    AWS IoT Greengrass V2 endpoints and quotas
+                                </strong>
+                            </a>
+                            in the AWS General Reference.
+                        </p>
+
+                    </li>
+                    <li>
+                        An AWS Identity and Access Management (IAM) User with Administrator privileges.
+                        Refer 
+                        <a href="https://tessolvesemiconductor.github.io/terabox.io/documents.html#creating-an-iam-role">
+                            <strong>
+                                creating an IAM role.
+                            </strong>
+                        </a>
+                    </li>
+                    <li>
+                        Terabox Gateway for installing Greengrass software.
+                    </li>
+                    <li>
+                        Python3.6 or greater version.
+                    </li>
+                    <li>
+                        Install AWS CLI as per the instructions in
+                        <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">
+                            <strong>
+                                aws cli
+                            </strong>
+                        </a>
+                        if not installed.
+                    </li>
+                 </ul>
+
+                 <h5 id="creating-an-iam-role" class="header">8.3 Creating an IAM Role</h5>
+                 <ol>
+                    <li>
+                        Log in to the 
+                        <a href="https://console.aws.amazon.com/iam/">
+                            <strong>
+                                IAM console
+                            </strong>
+                        </a>
+                        as the account owner by choosing Root user.
+                    </li>
+                    <li>
+                        Enter your AWS account email address. 
+                    </li>
+                    <li>
+                        Enter your password on the next page.
+                    </li>
+                    <li>
+                        Choose Users > Add users in the navigation pane.
+                    </li>
+                    <li>
+                        Enter the desired name in the Username filed. For example, GreengrassProv.
+                    </li>
+                    <li>
+                        Select the check box next to Access Key Programmatic Access.
+                    </li>
+                    <li>
+                        Choose Next: Permissions.
+                    </li>
+                    <li>
+                        Choose Attach Existing Policies Directly under Set permissions. 
+                    </li>
+                    <li>
+                        Filter the desired policies from the list. 
+                    </li>
+                     <li>
+                        Select following policies from the menu:
+                        <ol style="list-style-type: lower-alpha;">
+                            <li>
+                                IoT FullAccess
+                            </li>
+                            <li>
+                                S3 FullAccess
+                            </li>
+                            <li>
+                                Greengrass FullAccess
+                            </li>
+                            <li>
+                                IoT FullAccess
+                            </li>
+                        </ol>
+                     </li>
+                     <li>
+                        Choose Next: Tags.
+                     </li>
+                     <li>
+                        Choose Next: Preview.
+                     </li>
+                     <li>
+                        Choose Create user.
+                     </li>
+                     <li>
+                        Download the AWS Security credentials from the next window
+                     </li>
+                 </ol>
+                 <p>
+                    These credentials are required for setting up Greengrass core on the Terabox.
+                 </p>
+
+            <h5 class="header">8.4 Installing the AWS IoT Greengrass Core software on Terabox. </h5>
+                 <p>The AWS IoT Greengrass Core can be installed on the Terabox using any of the following two methods: </p>
+                 <ol>
+                    <li>
+                        Installing Through AWS IAM Console
+                    </li>
+                    <li>
+                        Installing Through Terminal Commands
+                    </li>
+                 </ol>  
+                   
+                 <!-- 
+                    Not updated part  ------Installing the AWS IoT Greengrass Core software on Terabox
+                  -->
+                    <h5 id="-installing-through-aws-iam-console-" class="header">
+                        <strong>8.4.1 Installing Through AWS IAM Console</strong>
                     </h5>
                     <ol>
-                        <li id="Preparing-the-Terabox">Preparing the Terabox
+                        <li>Preparing the Terabox
                             <ul>
-                                <li>Create the default system user and group that runs components on your device. 
-                                        <div class="doc_code">
-                                            <button class="copy_button fa fa-clipboard" onclick="copyText(`IamConsole`)"></button>
+                                <li>Create the default system user and group that runs components on your device.
+                                    <div class="doc_code">
+                                        <button class="copy_button fa fa-clipboard"
+                                            onclick="copyText(`IamConsole`)"></button>
                                         <code class="code_content" id="IamConsole">
-                                           sudo useradd --system --create-home ggc_user </br>
+                                            sudo useradd --system --create-home ggc_user </br>
                                            sudo groupadd --system ggc_group </br>
                                            sudo usermod -aG docker idt_ggc_user </br>
                                            sudo visudo </br>
                                            root ALL=(ALL:ALL) ALL </br>
                                        </code>
-                                        </div>
+                                    </div>
                                 </li>
-                          </ul>
-                    </li>
-                <li id="Provide-AWS-Credentials-to-Terabox">Provide AWS Credentials to Terabox
-                    <ul>
-                        <li>Copy the <strong>ACCESS_KEY</strong> &amp; <strong>SECURITY_ID</strong> from <strong>csv
-                                file</strong> downloaded from the <strong>Pre-requisites</strong> step and export as
-                               environment variables
-                            
-                                <div class="doc_code">
-                                    <button class="copy_button fa fa-clipboard" onclick="copyText(`accessKey`)"></button>
-                                    <code  class="code_content" id="accessKey">
+                            </ul>
+                        </li>
+                        <li>Provide AWS Credentials to Terabox
+                            <ul>
+                                <li>Copy the <strong>ACCESS_KEY</strong> &amp; <strong>SECURITY_ID</strong> from
+                                    <strong>csv
+                                        file</strong> downloaded from the <strong>Pre-requisites</strong> step and
+                                    export as
+                                    environment variables
+
+                                    <div class="doc_code">
+                                        <button class="copy_button fa fa-clipboard"
+                                            onclick="copyText(`accessKey`)"></button>
+                                        <code class="code_content" id="accessKey">
                                         export AWS_ACCESS_KEY_ID= "ACCESS-KEY" </br>
                                         export AWS_SECRET_ACCESS_KEY= "SECURITY-ACCESS-KEY"
                                     </code>
-                                </div>
-                
+                                    </div>
+
+                                </li>
+                            </ul>
                         </li>
-                    </ul>
-                </li>
-                <li>Setting up Environment for Greengrass</li>
-                <ul>
-                    <li>Java runtime has to be installed on the Terabox to install Greengrass core SDK. </li>
-                    <li>SSH to Terabox and run the following command
-                    
-                    <div class="doc_code">
-                        <button class="copy_button fa fa-clipboard" onclick="copyText(`installJdk`)"></button>
-                        <code  class="code_content" id="installJdk">
+                        <li>Setting up Environment for Greengrass</li>
+                        <ul>
+                            <li>Java runtime has to be installed on the Terabox to install Greengrass core SDK. </li>
+                            <li>SSH to Terabox and run the following command
+
+                                <div class="doc_code">
+                                    <button class="copy_button fa fa-clipboard"
+                                        onclick="copyText(`installJdk`)"></button>
+                                    <code class="code_content" id="installJdk">
                             sudo apt-get install default-jdk
                         </code>
-                    </div>
-                
-                    </li>
-                    <li>This will install Latest version of Java runtime on to Terabox</li>
-                </ul>
-                </li>
-                <li id="Installing-Greengrass-core-in-Terabox">Installing Greengrass core in Terabox </li>
-                <ul>
-                    <li>Sign in to the <a href="https://console.aws.amazon.com/iam/"><strong>IAM console</strong></a> as
-                        the account owner by choosing Root user and entering your AWS account email address. On the next
-                        page, enter your password.</li>
-                    <li>Choose <strong>IoT Greengrass</strong> from the search menu</li>
-                    <li>Choose <strong>Setup One Core Device</strong> in the next page. </li>
-                    <li>Provide <strong>Core device name</strong> in Step-1 or keep the automatically generated name by
-                        AWS</li>
-                    <li>Provide <strong>Thing Group Name</strong> by creating a new group or assign to an existing group
-                    </li>
-                    <li>Select the Operating system. Terabox runs on <strong>Linux</strong>. So, select
-                        <strong>Linux</strong>.</li>
-                    <li>
-                        <p>Copy the <strong>curl</strong> command mentioned under <strong>Download the
-                                Installer</strong> section and run on Terabox</p>
-                        <div class="doc_code">
-                    <button class="copy_button fa fa-clipboard" onclick="copyText(`GreengrassInstaller`)"></button>
+                                </div>
 
-                    <code id="GreengrassInstaller" class="code_content">
+                            </li>
+                            <li>This will install Latest version of Java runtime on to Terabox</li>
+                        </ul>
+                        </li>
+                        <li>Installing Greengrass core in Terabox </li>
+                        <ul>
+                            <li>Sign in to the <a href="https://console.aws.amazon.com/iam/"><strong>IAM
+                                        console</strong></a> as
+                                the account owner by choosing Root user and entering your AWS account email address. On
+                                the next
+                                page, enter your password.</li>
+                            <li>Choose <strong>IoT Greengrass</strong> from the search menu</li>
+                            <li>Choose <strong>Setup One Core Device</strong> in the next page. </li>
+                            <li>Provide <strong>Core device name</strong> in Step-1 or keep the automatically generated
+                                name by
+                                AWS</li>
+                            <li>Provide <strong>Thing Group Name</strong> by creating a new group or assign to an
+                                existing group
+                            </li>
+                            <li>Select the Operating system. Terabox runs on <strong>Linux</strong>. So, select
+                                <strong>Linux</strong>.
+                            </li>
+                            <li>
+                                <p>Copy the <strong>curl</strong> command mentioned under <strong>Download the
+                                        Installer</strong> section and run on Terabox</p>
+                                <div class="doc_code">
+                                    <button class="copy_button fa fa-clipboard"
+                                        onclick="copyText(`GreengrassInstaller`)"></button>
+
+                                    <code id="GreengrassInstaller" class="code_content">
                         cd /opt/aws  </br>
                         curl -s https://d2s8p88vqu9w66.cloudfront.net/releases/greengrass-nucleus-latest.zip > greengrass-nucleus-latest.zip && unzip greengrass-nucleus-latest.zip -d GreengrassInstaller                    
                     </code>
-                </div>
-                    </li>
-                    <li>
-                        <p>Copy the <strong>installer</strong> command in <strong>Run the Installer</strong> section and
-                            execute on Terabox</p>
-                        <div class="doc_code">
-                    <button class="copy_button fa fa-clipboard" onclick="copyText(`greengrass`)"></button> 
-                    <code class="code_content" id="greengrass">
+                                </div>
+                            </li>
+                            <li>
+                                <p>Copy the <strong>installer</strong> command in <strong>Run the Installer</strong>
+                                    section and
+                                    execute on Terabox</p>
+                                <div class="doc_code">
+                                    <button class="copy_button fa fa-clipboard"
+                                        onclick="copyText(`greengrass`)"></button>
+                                    <code class="code_content" id="greengrass">
                         cd /opt/aws </br>
                         sudo -E java -Droot="/opt/aws/greengrass/v2" \ </br>
                         -Dlog.store=FILE -jar ./GreengrassInstaller/lib/Greengrass.jar\ </br>
@@ -275,49 +724,56 @@
                         --setup-system-service true \ </br>
                         --deploy-dev-tools true  </br>
                     </code>
-                </div>
-                    </li>
-                    <li>This will take sometime to install AWS IoT Greengrass Core software on Terabox</li>
-                </ul>
-                </li>
-                <li>Verifying the Installation<ul>
-                        <li>Once the greengrass core software is installed successfully, it will create a systemd
-                            service.</li>
-                        <li>To check the status of the service</li>
-                        <div class="doc_code">
-                    <button class="copy_button fa fa-clipboard" onclick="copyText(`greengrassStatus`)"></button> 
-                    <code class="code_content" id="greengrassStatus">sudo service greengrass status
+                                </div>
+                            </li>
+                            <li>This will take sometime to install AWS IoT Greengrass Core software on Terabox</li>
+                        </ul>
+                        </li>
+                        <li>Verifying the Installation<ul>
+                                <li>Once the greengrass core software is installed successfully, it will create a
+                                    systemd
+                                    service.</li>
+                                <li>To check the status of the service</li>
+                                <div class="doc_code">
+                                    <button class="copy_button fa fa-clipboard"
+                                        onclick="copyText(`greengrassStatus`)"></button>
+                                    <code class="code_content" id="greengrassStatus">sudo service greengrass status
                     </code>
-                </div>
-                        <li>To view the log messages of the AWS IoT Greengrass Core software</li>
-                        <div class="doc_code">
-                    <button class="copy_button fa fa-clipboard" onclick="copyText(`greengrassService`)"></button> 
-                    <code class="code_content" id="greengrassService">sudo journalctl -u greengrass.service -f
+                                </div>
+                                <li>To view the log messages of the AWS IoT Greengrass Core software</li>
+                                <div class="doc_code">
+                                    <button class="copy_button fa fa-clipboard"
+                                        onclick="copyText(`greengrassService`)"></button>
+                                    <code class="code_content" id="greengrassService">sudo journalctl -u greengrass.service -f
                     </code>
-                </div>
-                    </ul>
-                </li>
-                </ol>
-                <h5 id="installing-through-terminal-commands"><strong>Installing Through Terminal Commands</strong>
-                </h5>
-                <ol>
-                    <li>Follow Steps 1,2,3 mentioned in <a href="#installing-through-aws-iam-console"><strong>Installing
-                                Through AWS IAM Console</strong></a> for installing the dependencies and setting up the
-                        environment</li>
-                    <li id="download-the-Greengrass-into-Terabox">Execute the following command which will download the Greengrass into Terabox</li>
-                    <div class="doc_code">
-                        <button class="copy_button fa fa-clipboard" onclick="copyText(`GreengrassInstaller`)"></button>
-    
-                        <code id="GreengrassInstaller" class="code_content">
+                                </div>
+                            </ul>
+                        </li>
+                    </ol>
+                    <h5 id="-installing-through-terminal-commands-" class="header"><strong>8.4.2 Installing Through Terminal
+                            Commands</strong>
+                    </h5>
+                    <ol>
+                        <li>Follow Steps 1,2,3 mentioned in <a
+                                href="#installing-through-aws-iam-console"><strong>Installing
+                                    Through AWS IAM Console</strong></a> for installing the dependencies and setting up
+                            the
+                            environment</li>
+                        <li>Exceute the following command which will download the Greengrass into Terabox</li>
+                        <div class="doc_code">
+                            <button class="copy_button fa fa-clipboard"
+                                onclick="copyText(`GreengrassInstaller`)"></button>
+
+                            <code id="GreengrassInstaller" class="code_content">
                             cd /opt/aws  </br>
                             curl -s https://d2s8p88vqu9w66.cloudfront.net/releases/greengrass-nucleus-latest.zip > greengrass-nucleus-latest.zip && unzip greengrass-nucleus-latest.zip -d GreengrassInstaller                    
                         </code>
-                    </div>
+                        </div>
 
-                    <li id="install-the-Greengrass-into-Terabox">Execute the following command which will install the Greengrass into Terabox</li>
-                    <div class="doc_code">
-                        <button class="copy_button fa fa-clipboard" onclick="copyText(`greengrass`)"></button> 
-                        <code class="code_content" id="greengrass">
+                        <li>Execute the following command which will install the Greengrass into Terabox</li>
+                        <div class="doc_code">
+                            <button class="copy_button fa fa-clipboard" onclick="copyText(`greengrass`)"></button>
+                            <code class="code_content" id="greengrass">
                             cd /opt/aws </br>
                             sudo -E java -Droot="/opt/aws/greengrass/v2" \ </br>
                             -Dlog.store=FILE -jar ./GreengrassInstaller/lib/Greengrass.jar\ </br>
@@ -329,63 +785,114 @@
                             --setup-system-service true \ </br>
                             --deploy-dev-tools true  </br>
                         </code>
-                    </div>
+                        </div>
 
-                    <li>Repeat Step 5 from <a href="#installing-through-aws-iam-console"><strong>Installing Through AWS
-                                IAM Console</strong></a> for verifying the installation &amp; checking the logs.</li>
-                </ol>
+                        <li>Repeat Step 5 from <a href="#installing-through-aws-iam-console"><strong>Installing Through
+                                    AWS
+                                    IAM Console</strong></a> for verifying the installation &amp; checking the logs.
+                        </li>
+                    </ol>
 
-            </div>
+         <h4 class="header">9. Create a Hello World Component</h4>
+         <p>
+            In Greengrass v2, components can be created on the edge device and uploaded to the cloud, 
+            or vice versa.
+         </p>
+          <h5 class="header">
+            9.1	Create the component on your edge device.
+          </h5>
+          <p>
+            To create, deploy, test, update, and manage a simple component on your device,
+             follow the instructions in section 
+             <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/getting-started.html">
+                <strong>
+                    To create a Hello World component.
+                </strong>
+             </a>
+          </p>
+          <h5 class="header">
+            9.2	Upload the Hello World Component
+          </h5>
+          <p>
+            To upload your component to the cloud, where it can be deployed to other devices as needed,
+             follow the instructions online at 
+             <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/getting-started.html">
+                <strong>
+                    Upload your component.
+                </strong>
+             </a>
+          </p>
+
+          <h4 class="header">10.Debugging</h4>
+          <p>
+            This section provides details on how to setup serial port and use TERABOX for any debug needs.
+          </p>
+          <p>
+            Refer section-4 for debug COM port details.
+          </p>
+          <ul>
+            <li>
+                Reset the system (Power supply on button reset)
+            </li>
+            <li>
+                Install “Putty.exe” for debug serial COM port and run putty.exe.
+            </li>
+            <li>
+                Open the “Device Manager” and check for COM port number detected on windows PC.
+            </li>
+            <li>
+                Select Serial, set COM port number in Serial Line and set baud rate to 115200 as mentioned below.
+                
+                <img class="device_image" src="Images/Images/qdRzft.png" alt="Fig7" >
+                <p class="image_info">Figure 7: Putty Configuration</p>
+            </li>
+            <li>
+               User can see the boot logs in COM port. Login as “root” as mentioned below.
+                <img class="device_image" src="Images/Images/Fig.png" alt="Fig" >
+                <p class="image_info">Figure 8: Booting logs</p>
+            </li>
+          </ul>
+
+          <h4 class="header">11.Troubleshooting</h4>
+          <p>Please Contact
+            <a href="sales@tessolve.com">
+                <strong>
+                    sales@tessolve.com
+                </strong>
+            </a>
+          </p>
+
+                </div>
             </div>
             <div class="doc_sidebar">
                 <ul class="navbar-nav">
-                    <li>
-                        <strong>Table of contents</strong>
+                    <li class="nav-item">
+                        <a href="#Overview" class="nav-link">
+                            Overview</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#aws-iot-greengrass-installation-on-terabox-gateway" class="nav-link">
+                        <a href="#Hardware-Description" class="nav-link">
+                            Hardware-Description</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Hardware-Setup" class="nav-link">
+                            Hardware-Setup
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Pre-requisites" class="nav-link">
                             Pre-requisites</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#creating-an-iam-role" class="nav-link">Creating an Iam Role</a>
+                        <a href="#creating-an-iam-role" class="nav-link">Creating an IAM Role</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#Preparing-the-Terabox" class="nav-link">Prepare the Terabox Gateway</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#Provide-AWS-Credentials-to-Terabox" class="nav-link">Provide AWS credentials to the Terabox</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#installing-through-aws-iam-console" class="nav-link">Installing Through AWS IAM
+                        <a href="#-installing-through-aws-iam-console-" class="nav-link">Installing Through AWS IAM
                             Console</a>
-                            <ul class="subitem-nav-bar">
-                                <li  class="nav-item">
-                                     <a href="#Installing-Greengrass-core-in-Terabox" class="nav-link">
-                                        Download AWS IoT Greengrass Core software
-                                    </a>
-                                </li>
-                                <li  class="nav-item">
-                                    <a href="#Installing-Greengrass-core-in-Terabox" class="nav-link">
-                                        Install AWS IoT Greengrass Core software
-                                   </a>
-                               </li>
-                            </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#installing-through-terminal-commands" class="nav-link">Installing Through Terminal
+                        <a href="#-installing-through-terminal-commands-" class="nav-link">Installing Through Terminal
                             Commands</a>
-                            <ul class="subitem-nav-bar">
-                                <li  class="nav-item">
-                                    <a href="#download-the-Greengrass-into-Terabox" class="nav-link">
-                                       Download AWS IoT Greengrass Core software
-                                   </a>
-                               </li>
-                               <li  class="nav-item">
-                                   <a href="#install-the-Greengrass-into-Terabox" class="nav-link">
-                                       Install AWS IoT Greengrass Core software
-                                  </a>
-                              </li>
-                            </ul>
                     </li>
                 </ul>
             </div>
